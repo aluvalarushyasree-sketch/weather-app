@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skyline — Weather Instrument</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-condition="clear-day">
+
+  <div class="panel">
+
+    <!-- Header / search -->
+    <header class="header">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-name">Skyline</span>
+      </div>
+
+      <form class="search" id="search-form" autocomplete="off">
+        <input
+          type="text"
+          id="search-input"
+          placeholder="Search a city — e.g. Kurnool, Hyderabad, Tokyo"
+          aria-label="Search for a city"
+        />
+        <button type="submit" aria-label="Search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+        <button type="button" id="locate-btn" title="Use my location" aria-label="Use my location">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+        </button>
+      </form>
+
+      <div class="unit-toggle" role="group" aria-label="Temperature unit">
+        <button type="button" class="unit-btn is-active" data-unit="c">°C</button>
+        <button type="button" class="unit-btn" data-unit="f">°F</button>
+      </div>
+    </header>
+
+    <div id="suggestions" class="suggestions" hidden></div>
+
+    <!-- States -->
+    <section id="state-loading" class="state">
+      <div class="spinner" aria-hidden="true"></div>
+      <p>Reading the instruments…</p>
+    </section>
+
+    <section id="state-error" class="state" hidden>
+      <p id="error-message">Couldn't find that place. Try another city name.</p>
+    </section>
+
+    <!-- Main readout -->
+    <main id="state-main" class="main" hidden>
+
+      <section class="hero">
+        <div class="hero-left">
+          <p class="location" id="location-name">—</p>
+          <p class="updated" id="updated-at">—</p>
+          <div class="reading">
+            <span class="temp" id="current-temp">—</span>
+            <span class="deg" id="current-unit">°C</span>
+          </div>
+          <p class="condition-label" id="condition-label">—</p>
+          <p class="feels-like" id="feels-like">Feels like —</p>
+        </div>
+        <div class="hero-right">
+          <svg id="condition-icon" class="condition-icon" viewBox="0 0 100 100" aria-hidden="true"></svg>
+          <p class="high-low">
+            <span id="temp-high">—</span> <span class="hl-label">high</span>
+            &nbsp;·&nbsp;
+            <span id="temp-low">—</span> <span class="hl-label">low</span>
+          </p>
+        </div>
+      </section>
+
+      <!-- Instrument readouts -->
+      <section class="readouts">
+        <div class="readout">
+          <p class="readout-label">Wind</p>
+          <p class="readout-value"><span id="wind-speed">—</span> km/h</p>
+          <p class="readout-sub" id="wind-dir">—</p>
+        </div>
+        <div class="readout">
+          <p class="readout-label">Humidity</p>
+          <p class="readout-value"><span id="humidity">—</span>%</p>
+        </div>
+        <div class="readout">
+          <p class="readout-label">Pressure</p>
+          <p class="readout-value"><span id="pressure">—</span> hPa</p>
+        </div>
+        <div class="readout">
+          <p class="readout-label">UV index</p>
+          <p class="readout-value" id="uv-index">—</p>
+        </div>
+        <div class="readout">
+          <p class="readout-label">Precipitation</p>
+          <p class="readout-value"><span id="precip">—</span>%</p>
+        </div>
+        <div class="readout">
+          <p class="readout-label">Visibility</p>
+          <p class="readout-value"><span id="visibility">—</span> km</p>
+        </div>
+      </section>
+
+      <!-- Hourly strip -->
+      <section class="hourly">
+        <p class="section-label">Next 24 hours</p>
+        <div class="hourly-strip" id="hourly-strip"></div>
+      </section>
+
+      <!-- 7 day forecast -->
+      <section class="forecast">
+        <p class="section-label">7-day outlook</p>
+        <div class="forecast-list" id="forecast-list"></div>
+      </section>
+
+    </main>
+
+    <footer class="footer">
+      <span>Data from <a href="https://open-meteo.com" target="_blank" rel="noopener">Open-Meteo</a></span>
+      <span id="coords"></span>
+    </footer>
+
+  </div>
+
+<script src="script.js"></script>
+</body>
+</html>
